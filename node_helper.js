@@ -4,13 +4,16 @@ const path=require('path')
 // add require of other javascripot components here
 // var xxx = require('yyy') here
 module.exports = NodeHelper.create({
+	
 	launchit(){
 
 		let handler
 		if(this.config.debug) console.log("PythonPrint spawning "+this.config.command+" using "+this.config.pythonName)
-		handler = spawn(this.config.pythonName, ['-u', this.config.command]);
+
+		handler = spawn(this.config.pythonName, ['-u', this.config.command,'uno:1','dos:2','tres:3']);
 		handler.stdout.on('data', (data) => {
 			if(this.config.debug) console.log("PythonPrint sending program output="+data)
+
 			this.sendSocketNotification("message_from_helper", data.toString())
 		})
 		handler.stderr.on('data', (data)=>{
@@ -20,13 +23,14 @@ module.exports = NodeHelper.create({
 			if(this.config.debug) console.log("PythonPrint spawn error="+data)
 		})
 	},
+	
 	startit(){
 
-		if(this.config.command.startsWith(this.config.pythonName))
+		if(this.config.command.startsWith(this.config.pythonName)) //if the name is not starting with a slack aka is a local file in the same folder
 			this.config.command=this.config.command.slice(this.config.pythonName.length)
-		if(this.config.localfolder)
+		if(this.config.localfolder) // add the full path to the file so spawn can work since spawn requires the full path to the python script
 			this.config.command=__dirname+path.sep+this.config.command
-		if(this.config.repetative)
+		if(this.config.script_is_long_running) // if this is configured to run over and over 
 			this.launchit()
 		else{
 				setInterval( ()=>{ this.launchit() }, this.config.cycletime )

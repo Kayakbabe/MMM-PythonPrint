@@ -1,8 +1,6 @@
-import time;
-
 
 def hello():
-	print("hello");
+	print("hello from printitonce.py");
 
 if __name__ == '__main__':
     hello()

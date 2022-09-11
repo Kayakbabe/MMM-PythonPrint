@@ -22,11 +22,10 @@ doc for [MMM-PythonPrint](https://github.com/sdetweil/MMM-PythonPrint)
 
 			// spawn a python pgm that writes over and over (timed maybe), but keeps running
 			command: 'printit.py',
-			repetative: true,
+			script_is_long_running: true,
 
 			// spawn a one time output  script, but relaunch it every cycletime milliseconds
-
-			// repretative: false,
+			// script_is_long_running: false,
 			// command: 'printitonce.py',
 			cycletime: 2000,
 
