@@ -13,7 +13,7 @@ Module.register("MMM-PythonPrint", {
 	// and replaced if the same thing is provided in config
 	defaults: {
 		command: "",
-		repetative: true,
+		script_is_long_running: true,
 		cycletime:0,
 		localfolder:false,
 		pythonName:"python",
